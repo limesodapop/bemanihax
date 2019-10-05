@@ -438,8 +438,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         }
 
         if (config.unlock_all) {
-            patch_hidden_charts_3();
-            patch_hidden_charts_7();
+            // patch_hidden_charts_3();
+            // patch_hidden_charts_7();
             patch_unlock_classic8();
             patch_unlock_all();
         }
