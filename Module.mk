@@ -11,6 +11,7 @@ include iidxhax/Module.mk
 include popnhax/Module.mk
 include jubeathax/Module.mk
 include gitadorahax/Module.mk
+include ddrhax/Module.mk
 
 #
 # Distribution build rules
@@ -49,7 +50,15 @@ $(BUILDDIR)/gitadorahax.zip: \
 	echo ... $@
 	zip -j $@ $^
 
+$(BUILDDIR)/ddrhax.zip: \
+		build/bin/avs2_1508-32/ddrhax.dll \
+		dist/ddrhax/ddrhax.xml \
+		| $(zipdir)/
+	echo ... $@
+	zip -j $@ $^
+
 all: $(BUILDDIR)/iidxhax.zip \
      $(BUILDDIR)/popnhax.zip \
      $(BUILDDIR)/jubeathax.zip \
-     $(BUILDDIR)/gitadorahax.zip
+     $(BUILDDIR)/gitadorahax.zip \
+     $(BUILDDIR)/ddrhax.zip \
