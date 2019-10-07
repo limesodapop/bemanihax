@@ -2,14 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:18.04
+      - image: windyfairy/cienv
 
     steps:
       - checkout
-
-      - run:
-          name: Install dependencies
-          command: apt update && apt install -y g++-mingw-w64-x86-64 g++-mingw-w64-i686 make jq curl zip tar gzip
 
       - run:
           name: Build project
@@ -19,10 +15,7 @@ jobs:
           name: Deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              curl -LO https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
-              tar -xvzf ghr_v0.13.0_linux_amd64.tar.gz
-              mv ghr_v0.13.0_linux_amd64/ghr .
               mkdir -p deploy
               mv build/*.zip deploy/
-              ./ghr -t "${GITHUB_TOKEN}" -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" -delete "release-`date '+%Y%m%d-%H%M%S'`" deploy/
+              ghr -t "${GITHUB_TOKEN}" -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" -delete "release-`date '+%Y%m%d-%H%M%S'`" deploy/
             fi
