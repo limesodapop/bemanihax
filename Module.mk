@@ -57,8 +57,14 @@ $(BUILDDIR)/ddrhax.zip: \
 	echo ... $@
 	zip -j $@ $^
 
-all: $(BUILDDIR)/iidxhax.zip \
-     $(BUILDDIR)/popnhax.zip \
-     $(BUILDDIR)/jubeathax.zip \
-     $(BUILDDIR)/gitadorahax.zip \
-     $(BUILDDIR)/ddrhax.zip \
+$(BUILDDIR)/bemanihax.zip: \
+		$(BUILDDIR)/iidxhax.zip \
+		$(BUILDDIR)/popnhax.zip \
+		$(BUILDDIR)/jubeathax.zip \
+		$(BUILDDIR)/gitadorahax.zip \
+		$(BUILDDIR)/ddrhax.zip \
+		| $(zipdir)/
+	echo ... $@
+	zip -9 -q -j $@ $^
+
+all: $(BUILDDIR)/bemanihax.zip

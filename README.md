@@ -8,7 +8,7 @@ Instructions tested with Windows Subsystem for Linux as well as Ubuntu. You may 
 
 1.) Install required tools
 ```
-~> sudo apt-get install g++-mingw-w64-x86-64 g++-mingw-w64-i686 zip
+~> sudo apt-get install g++-mingw-w64-x86-64 g++-mingw-w64-i686 zip make
 ```
 
 2.) Build
