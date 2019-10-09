@@ -445,7 +445,6 @@ static bool fakeeascore_xrpc_send_score_card(unsigned char *data, char *cardData
 
     if (cardData != nullptr) {
         memcpy(fakeeascore_ctx[playerNum].carddata, cardData, 8);
-        free(cardData);
     }
 
     memcpy(fakeeascore_ctx[playerNum].data, data, len);
@@ -517,8 +516,7 @@ bool send_scorebot_request(int32_t playerNum, bool send) {
             int32_t timing_fast = timingPlayer[playerNum][1];
             int32_t timing_total = timingPlayer[playerNum][2];
 
-            char *cardData = (char *)calloc(8, sizeof(char));
-
+            char cardData[8] = {0};
             memcpy(cardData, playerCardIds[playerNum], 8);
 
             // Found last song entry, send to scorebot
@@ -527,7 +525,7 @@ bool send_scorebot_request(int32_t playerNum, bool send) {
             // the Discord code
             std::async(std::launch::async, [moduleBase, cardData, playerNum, timing_slow,
                                             timing_fast, timing_total]() {
-                fakeeascore_xrpc_send_score_card(moduleBase, cardData, scoreEntrySize, playerNum,
+                fakeeascore_xrpc_send_score_card(moduleBase, (char*)&cardData, scoreEntrySize, playerNum,
                                                  timing_slow, timing_fast, timing_total);
             });
         }
